@@ -1,0 +1,16 @@
+﻿@model WebApplication1.Models.Product
+@{
+    ViewBag.Title = "MyAction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MyAction</h2>
+
+@if (Model != null)
+{
+    @Html.DisplayFor(m => m.ProductID)
+    @Html.DisplayFor(m => m.ProductName)
+    @Html.DisplayFor(m => m.QuantityPerUnit)
+
+
+}

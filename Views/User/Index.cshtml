@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>DashBoard</h3>
+
+<div class="container">
+    
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#chart1" id="tab1">Product-Supplier Chart</a></li>
+        <li><a data-toggle="tab" href="#chart2" id="tab2">Product-Category Chart</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="chart1" class="tab-pane fade in active">
+            <div id="supplierChartContainer" style="height:450px; width: 100%; margin: 0px auto;"></div>
+        </div>
+        <div id="chart2" class="tab-pane fade">
+            <div id="categoryChartContainer" style="height:400px; width: 100%; margin: 0px auto;"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    window.onload = function () {
+
+        var x=@Html.Raw(ViewBag.supplierChartResult);
+        var optionsSupplier = {
+            animationEnabled: true,
+            title: {
+                text: "Supplier-Products"
+            },
+            theme: "light1",
+            data: [{
+                type: "doughnut",
+                innerRadius: "40%",
+                showInLegend: true,
+                legendText: "{label}",
+                indexLabel: "{label}: #percent%",
+                dataPoints:  x
+            }]
+        };
+
+        $("#supplierChartContainer").CanvasJSChart(optionsSupplier);
+    }
+    $('#tab2').on("shown.bs.tab",function(){
+        let supplierChartData = @Html.Raw(ViewBag.categoryChartResult);
+        var chart = new CanvasJS.Chart("categoryChartContainer", {
+            animationEnabled: true,
+            theme: "light2",
+            title: {
+                text: "Products Based on Category"
+            },
+            axisY: {
+                title: "Count of Products"
+            },
+            data: [{
+                type: "column",
+                showInLegend: true,
+                legendMarkerColor: "grey",
+                legendText: "Count of Products",
+                dataPoints: supplierChartData
+            }]
+        });
+        chart.render();
+        $('#tab2').off();
+    });
+
+</script>
+
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<script src="~/Scripts/jquery.canvasjs.min.js"></script>
+

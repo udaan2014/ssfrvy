@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+<div class="container">
+    
+    <hr />
+    <table class="table">
+        <thead>
+            User Details
+        </thead>
+        <tbody>  
+            <tr>
+                <th>User ID</th>
+                <th>User Name</th>
+            </tr>          
+            <tr>
+                <td>@ViewData["userID"]</td>
+                <td>@ViewData["userName"]</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+</div>
+
